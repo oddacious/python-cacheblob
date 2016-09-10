@@ -1,99 +1,67 @@
-========
-Overview
-========
+python-cacheblob
+================
 
-.. start-badges
+**Note: This is a pre-release version. I'm taking more time to decide if I want to change
+the interface**
 
-.. list-table::
-    :stub-columns: 1
-
-    * - docs
-      - |docs|
-    * - tests
-      - | |travis| |appveyor| |requires|
-        | |codecov|
-    * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
-
-.. |docs| image:: https://readthedocs.org/projects/python-cacheblob/badge/?style=flat
-    :target: https://readthedocs.org/projects/python-cacheblob
-    :alt: Documentation Status
-
-.. |travis| image:: https://travis-ci.org/oddacious/python-cacheblob.svg?branch=master
-    :alt: Travis-CI Build Status
-    :target: https://travis-ci.org/oddacious/python-cacheblob
-
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/oddacious/python-cacheblob?branch=master&svg=true
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/oddacious/python-cacheblob
-
-.. |requires| image:: https://requires.io/github/oddacious/python-cacheblob/requirements.svg?branch=master
-    :alt: Requirements Status
-    :target: https://requires.io/github/oddacious/python-cacheblob/requirements/?branch=master
-
-.. |codecov| image:: https://codecov.io/github/oddacious/python-cacheblob/coverage.svg?branch=master
-    :alt: Coverage Status
-    :target: https://codecov.io/github/oddacious/python-cacheblob
-
-.. |version| image:: https://img.shields.io/pypi/v/cacheblob.svg?style=flat
-    :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/cacheblob
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/cacheblob.svg?style=flat
-    :alt: PyPI Package monthly downloads
-    :target: https://pypi.python.org/pypi/cacheblob
-
-.. |wheel| image:: https://img.shields.io/pypi/wheel/cacheblob.svg?style=flat
-    :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/cacheblob
-
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/cacheblob.svg?style=flat
-    :alt: Supported versions
-    :target: https://pypi.python.org/pypi/cacheblob
-
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/cacheblob.svg?style=flat
-    :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/cacheblob
-
-
-.. end-badges
-
-Simple data cache utility
-
-* Free software: BSD license
+cacheblob is a key-value interface for expiring items.
 
 Installation
-============
+------------
 
-::
+pip install python-cacheblob
 
-    pip install cacheblob
+Usage
+-----
 
-Documentation
-=============
+.. code-block:: python
 
-https://python-cacheblob.readthedocs.io/
+    import datetime
+    from cacheblob import Cacheblob
 
-Development
-===========
+    cache = Cacheblob.cache(handler='mongo')
+    cache.store(index='index2', value='value2', duration=datetime.timedelta(days=1))
+    for item in cache.fetch_all():
+        print item
 
-To run the all tests run::
+Use Case
+--------
 
-    tox
+cacheblob was designed for data sources that should age and expire. Using it should be as
+simple as setting an expiry time (or duration) on your data. 
 
-Note, to combine the coverage data from all the tox environments run:
+As such, cacheblob avoids imposing too many design decisions upon the user beyond those
+necessary for its expiry functionality. It decouples the interface and the storage
+mechanism by allowing arbitrary underlying storage systems, called *handlers* in
+cacheblob.
 
-.. list-table::
-    :widths: 10 90
-    :stub-columns: 1
+Cacheblob has an *item* concept, which is a key-value pair with an expiry time. Most
+handlers except strings for values or will work with any values that can be converted to
+strings. Not all handlers are necessarily subject to this limitation.
 
-    - - Windows
-      - ::
+Cacheblob was designed to be lightweight by default, and be flexible, by allowing the
+user to choose their underlying storage model. Worried about concurrency? Use a handler
+that allows concurrent access. You want your items as files on disk for easy access by
+programs that expect them as such? Use a file-backed handler. Choose your own
+consistency-availability-tolerance trade-off.
 
-            set PYTEST_ADDOPTS=--cov-append
-            tox
+The current implemented handlers are:
 
-    - - Other
-      - ::
+- handler: A lightweight wrapper that uses Python's in-memory storage
+- mongo: Store items in a Mongo database
+- sqlite: Store items in a SQLite database
+- plaintext: Store items as files in a folder on disk
+- gzip: Store items as gzip files in a folder on disk
 
-            PYTEST_ADDOPTS=--cov-append tox
+Authors
+-------
+
+rdj - https://oddacious.github.io
+
+Changelog
+---------
+
+0.1.0a1
+*******
+
+* Prerelease
