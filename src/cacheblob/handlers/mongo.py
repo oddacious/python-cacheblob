@@ -37,7 +37,7 @@ class Mongo(Handler):
                 self.database = opts['database_name']
 
             if 'table_name' in opts:
-                self.table = opts['table_name']
+                self.table_name = opts['table_name']
 
         if self.client is None:
             self.client = pymongo.MongoClient()

@@ -62,3 +62,7 @@ docs/_build
 .bootstrap
 .appveyor.token
 *.bak
+
+# Added by me
+test/pip-selfcheck.json
+test/include/python2.7
