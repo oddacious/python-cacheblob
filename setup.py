@@ -26,7 +26,7 @@ setup(
     name='cacheblob',
     version='0.1.0',
     license='Apache Software License',
-    description='Simple data cache utility',
+    description='cacheblob is a key-value interface for expiring items.',
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))

@@ -54,11 +54,3 @@ Authors
 -------
 
 rdj - https://oddacious.github.io
-
-Changelog
----------
-
-0.1.0a1
-*******
-
-* Prerelease
