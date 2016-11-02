@@ -2,24 +2,16 @@
 Contributing
 ============
 
-Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.
+Contributions are great.
 
 Bug reports
 ===========
 
 When `reporting a bug <https://github.com/oddacious/python-cacheblob/issues>`_ please include:
 
-    * Your operating system name and version.
+    * Which handler you are using and what version of the underlying software (e.g. sqlite) you are using.
     * Any details about your local setup that might be helpful in troubleshooting.
     * Detailed steps to reproduce the bug.
-
-Documentation improvements
-==========================
-
-cacheblob could always use more documentation, whether as part of the
-official cacheblob docs, in docstrings, or even on the web in blog posts,
-articles, and such.
 
 Feature requests and feedback
 =============================
