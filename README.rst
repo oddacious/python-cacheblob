@@ -1,9 +1,6 @@
 python-cacheblob
 ================
 
-**Note: This is a pre-release version. I'm taking more time to decide if I want to change
-the interface**
-
 cacheblob is a key-value interface for expiring items.
 
 Installation
@@ -39,7 +36,7 @@ Cacheblob has an *item* concept, which is a key-value pair with an expiry time. 
 handlers except strings for values or will work with any values that can be converted to
 strings. Not all handlers are necessarily subject to this limitation.
 
-Cacheblob was designed to be lightweight by default, and be flexible, by allowing the
+Cacheblob was designed to be lightweight by default, and to be flexible, by allowing the
 user to choose their underlying storage model. Worried about concurrency? Use a handler
 that allows concurrent access. You want your items as files on disk for easy access by
 programs that expect them as such? Use a file-backed handler. Choose your own
